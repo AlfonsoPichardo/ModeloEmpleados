@@ -1,0 +1,32 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'Project';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<p>
+    <a href="<?= $this->url('project', ['action' => 'add']) ?>">Add new Project</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Start Date</th>
+    <th>Complete</th>
+    <th>Actions</th>
+</tr>
+<?php foreach ($projects as $project) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($project->project_id) ?></td>
+        <td><?= $this->escapeHtml($project->title) ?></td>
+        <td><?= $this->escapeHtml($project->start_date) ?></td>
+        <td><?= $this->escapeHtml($project->complete) ?></td>
+        <td>
+            <a href="<?= $this->url('project', ['action' => 'edit', 'project_id' => $project->project_id]) ?>">Edit</a>
+            <a href="<?= $this->url('project', ['action' => 'delete', 'project_id' => $project->project_id]) ?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
