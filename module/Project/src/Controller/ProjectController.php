@@ -18,7 +18,6 @@ class ProjectController extends AbstractActionController
         $this->table = $table;
     }
 
-
     public function indexAction()
     {
         return new ViewModel([
@@ -55,20 +54,20 @@ class ProjectController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (0 === $id) {
-            return $this->redirect()->toRoute('album', ['action' => 'add']);
+            return $this->redirect()->toRoute('project', ['action' => 'add']);
         }
 
         // Retrieve the album with the specified id. Doing so raises
         // an exception if the album is not found, which should result
         // in redirecting to the landing page.
         try {
-            $album = $this->table->getAlbum($id);
+            $project = $this->table->getProject($id);
         } catch (\Exception $e) {
-            return $this->redirect()->toRoute('album', ['action' => 'index']);
+            return $this->redirect()->toRoute('project', ['action' => 'index']);
         }
 
-        $form = new AlbumForm();
-        $form->bind($album);
+        $form = new ProjectForm();
+        $form->bind($project);
         $form->get('submit')->setAttribute('value', 'Edit');
 
         $request = $this->getRequest();
@@ -78,24 +77,24 @@ class ProjectController extends AbstractActionController
             return $viewData;
         }
 
-        $form->setInputFilter($album->getInputFilter());
+        $form->setInputFilter($project->getInputFilter());
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
             return $viewData;
         }
 
-        $this->table->saveAlbum($album);
+        $this->table->saveProject($project);
 
         // Redirect to album list
-        return $this->redirect()->toRoute('album', ['action' => 'index']);
+        return $this->redirect()->toRoute('project', ['action' => 'index']);
     }
 
     public function deleteAction()
     {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('project');
         }
 
         $request = $this->getRequest();
@@ -104,11 +103,11 @@ class ProjectController extends AbstractActionController
 
             if ($del == 'Yes') {
                 $id = (int) $request->getPost('id');
-                $this->table->deleteAlbum($id);
+                $this->table->deleteProject($id);
             }
 
             // Redirect to list of albums
-            return $this->redirect()->toRoute('album');
+            return $this->redirect()->toRoute('project');
         }
 
         return [

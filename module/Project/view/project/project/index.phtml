@@ -24,8 +24,8 @@ $this->headTitle($title);
         <td><?= $this->escapeHtml($projects->st_date) ?></td>
         <td><?= $this->escapeHtml($projects->complete) ?></td>
         <td>
-            <a href="<?= $this->url('project', ['action' => 'edit', 'id' => $project->id]) ?>">Edit</a>
-            <a href="<?= $this->url('project', ['action' => 'delete', 'id' => $project->id]) ?>">Delete</a>
+            <a href="<?= $this->url('project', ['action' => 'edit', 'id' => $projects->id]) ?>">Edit</a>
+            <a href="<?= $this->url('project', ['action' => 'delete', 'id' => $projects->id]) ?>">Delete</a>
         </td>
     </tr>
 <?php endforeach; ?>
