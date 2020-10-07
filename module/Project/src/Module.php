@@ -27,6 +27,16 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Project());
                     return new TableGateway('projects', $dbAdapter, null, $resultSetPrototype);
                 },
+                Model\DepartmentTable::class => function($container) {
+                    $tableGateway = $container->get(Model\DepartmentTableGateway::class);
+                    return new Model\DepartmentTable($tableGateway);
+                },
+                Model\DepartmentTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Department());
+                    return new TableGateway('departments', $dbAdapter, null, $resultSetPrototype);
+                },
             ],
         ];
     }
@@ -39,6 +49,11 @@ class Module implements ConfigProviderInterface
                 Controller\ProjectController::class => function($container) {
                     return new Controller\ProjectController(
                         $container->get(Model\ProjectTable::class)
+                    );
+                },
+                Controller\DepartmentController::class => function($container) {
+                    return new Controller\DepartmentController(
+                        $container->get(Model\DepartmentTable::class)
                     );
                 },
             ],

@@ -30,12 +30,24 @@ CREATE TABLE projects(
 -- Volcado de datos para la tabla `projects`
 --
 
+CREATE TABLE departments(
+  id integer PRIMARY KEY AUTOINCREMENT,
+  department varchar(85) DEFAULT NULL
+); 
+
+
 INSERT INTO projects (title,st_date,complete) VALUES
 ('LAMINAS', '2020-09-07', 'YES'),
 ('BD', '2020-09-10', 'NO'),
 ('BD Y ESQUEMA', '2020-09-10', 'NO'),
 ('ANALISIS', '2015-02-11', 'YES'),
 ('INGENIERIA', '2019-02-15', 'NO');
+
+INSERT INTO departments (department) VALUES
+('ENGINEER');
+
+
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
