@@ -17,15 +17,15 @@ $this->headTitle($title);
     <th>Complete</th>
     <th>Actions</th>
 </tr>
-<?php foreach ($projects as $project) : ?>
+<?php foreach ($project as $projects) : ?>
     <tr>
-        <td><?= $this->escapeHtml($project->project_id) ?></td>
-        <td><?= $this->escapeHtml($project->title) ?></td>
-        <td><?= $this->escapeHtml($project->start_date) ?></td>
-        <td><?= $this->escapeHtml($project->complete) ?></td>
+        <td><?= $this->escapeHtml($projects->id) ?></td>
+        <td><?= $this->escapeHtml($projects->title) ?></td>
+        <td><?= $this->escapeHtml($projects->st_date) ?></td>
+        <td><?= $this->escapeHtml($projects->complete) ?></td>
         <td>
-            <a href="<?= $this->url('project', ['action' => 'edit', 'project_id' => $project->project_id]) ?>">Edit</a>
-            <a href="<?= $this->url('project', ['action' => 'delete', 'project_id' => $project->project_id]) ?>">Delete</a>
+            <a href="<?= $this->url('project', ['action' => 'edit', 'id' => $project->id]) ?>">Edit</a>
+            <a href="<?= $this->url('project', ['action' => 'delete', 'id' => $project->id]) ?>">Delete</a>
         </td>
     </tr>
 <?php endforeach; ?>

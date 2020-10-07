@@ -14,7 +14,7 @@ class ProjectForm extends Form
         parent::__construct('album');
 
         $this->add([
-            'name' => 'project_id',
+            'name' => 'id',
             'type' => 'hidden',
         ]);
 
@@ -27,17 +27,11 @@ class ProjectForm extends Form
         ]);
 
         $this->add([
-            'type' => Element\Date::class,
-            'name' => 'start_date',
+            'name' => 'st_date',
+            'type' => 'text',
             'options' => [
-            'label' => 'Appointment Date',
-            'format' => 'Y-m-d',
-             ],
-            'attributes' => [
-                'min' => '2000-01-01',
-                'max' => '2020-09-01',
-                'step' => '1', // days; default step interval is 1 day
-                ],
+                'label' => 'Fecha Inicio',
+            ],
         ]);
 
         $this->add([

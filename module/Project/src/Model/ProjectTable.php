@@ -18,15 +18,15 @@ class ProjectTable
         return $this->tableGateway->select();
     }
 
-    public function getProject($project_id)
+    public function getProject($id)
     {
-        $project_id = (int) $project_id;
-        $rowset = $this->tableGateway->select(['project_id' => $project_id]);
+        $id = (int) $id;
+        $rowset = $this->tableGateway->select(['id' => $id]);
         $row = $rowset->current();
         if (! $row) { 
             throw new RuntimeException(sprintf(
                 'Could not find row with identifier %d',
-                $project_id
+                $id
             ));
         }
 
@@ -36,34 +36,34 @@ class ProjectTable
     public function saveProject(Project $project)
     {
         $data = [
-            'project_id'    => $project->project_id,
+            'id'    => $project->id,
             'title'         => $project->title,
-            'start_date'    => $project->start_date,
+            'st_date'    => $project->st_date,
             'complete'      => $project->complete
         ];
 
-        $project_id = (int) $project->project_id;
+        $id = (int) $project->id;
 
-        if ($project_id === 0) {
+        if ($id === 0) {
             $this->tableGateway->insert($data);
             return;
         }
 
         try {
-            $this->getProject($project_id);
+            $this->getProject($id);
         } catch (RuntimeException $e) {
             throw new RuntimeException(sprintf(
                 'Cannot update album with identifier %d; does not exist',
-                $project_id
+                $id
             ));
         }
 
-        $this->tableGateway->update($data, ['project_id' => $project_id]);
+        $this->tableGateway->update($data, ['id' => $id]);
     }
 
-    public function deleteProject($project_id)
+    public function deleteProject($id)
     {
-        $this->tableGateway->delete(['project_id' => (int) $project_id]);
+        $this->tableGateway->delete(['id' => (int) $id]);
     }
 }
 ?>

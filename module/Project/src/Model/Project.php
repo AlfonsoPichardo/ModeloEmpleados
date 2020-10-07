@@ -13,27 +13,27 @@ use Laminas\Validator\StringLength;
 
 class Project
 {
-    public $project_id;
+    public $id;
     public $title;
-    public $start_date;
+    public $st_date;
     public $complete;
 
     private $inputFilter;
 
     public function exchangeArray(array $data)
     {
-        $this->project_id     = !empty($data['project_id']) ? $data['project_id'] : null;
+        $this->id     = !empty($data['id']) ? $data['id'] : null;
         $this->title = !empty($data['title']) ? $data['title'] : null;
-        $this->start_date  = !empty($data['start_date']) ? $data['start_date'] : null;
+        $this->st_date  = !empty($data['st_date']) ? $data['st_date'] : null;
         $this->complete  = !empty($data['complete']) ? $data['complete'] : null;
     }
 
     public function getArrayCopy()
     {
         return [
-            'project_id'     => $this->project_id,
+            'id'     => $this->id,
             'title'  => $this->title,
-            'start_date' => $this->start_date,
+            'st_date' => $this->st_date,
             'complete' => $this->complete
         ];
     }
@@ -57,7 +57,7 @@ class Project
         $inputFilter = new InputFilter();
 
         $inputFilter->add([
-            'name' => 'project_id',
+            'name' => 'id',
             'required' => true,
             'filters' => [
                 ['name' => ToInt::class],
@@ -86,10 +86,21 @@ class Project
 // fechaa
 
         $inputFilter->add([
-            'name' => 'start_date',
+            'name' => 'st_date',
             'required' => true,
             'filters' => [
-                ['name' => ToDate::class],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
+            ],
+            'validators' => [
+                [
+                    'name' => StringLength::class,
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 85,
+                    ],
+                ],
             ],
         ]);
 
